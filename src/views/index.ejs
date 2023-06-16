@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Enviar Datos</title>
+</head>
+<body>
+  <h1>Enviar Datos</h1>
+
+  <form id="myForm">
+    <label for="username">Username:</label>
+    <input type="text" id="username" name="username" required>
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" required>
+
+    <button type="submit">Enviar</button>
+  </form>
+
+  <script>
+    const form = document.getElementById("myForm");
+    form.addEventListener("submit", function(event) {
+      event.preventDefault();
+      const formData = new FormData(form);
+      const xhr = new XMLHttpRequest();
+      xhr.open("POST", "http://localhost:4300/client/get");
+      xhr.send(formData);
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+          if (xhr.status === 200) {
+            // Procesamiento exitoso
+            console.log("Datos enviados correctamente");
+          } else {
+            // Error en el procesamiento
+            console.error("Error al enviar los datos");
+          }
+        }
+      };
+    });
+  </script>
+</body>
+</html>
